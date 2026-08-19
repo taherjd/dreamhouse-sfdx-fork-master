@@ -1,0 +1,89 @@
+<template>
+    <lightning-card title="Submission Pipeline" icon-name="standard:insurance_policy">
+        <div slot="actions">
+            <lightning-button-group>
+                <lightning-button
+                    label="All"
+                    variant={allVariant}
+                    onclick={handleFilterAll}
+                ></lightning-button>
+                <lightning-button
+                    label="New"
+                    variant={newVariant}
+                    onclick={handleFilterNew}
+                ></lightning-button>
+                <lightning-button
+                    label="In Review"
+                    variant={reviewVariant}
+                    onclick={handleFilterReview}
+                ></lightning-button>
+                <lightning-button
+                    label="Bound"
+                    variant={boundVariant}
+                    onclick={handleFilterBound}
+                ></lightning-button>
+            </lightning-button-group>
+        </div>
+        <div class="slds-m-around_medium">
+            <template if:true={isLoading}>
+                <lightning-spinner
+                    alternative-text="Loading submissions"
+                    size="medium"
+                ></lightning-spinner>
+            </template>
+            <template if:false={isLoading}>
+                <template if:true={hasError}>
+                    <div class="slds-notify slds-notify_alert slds-theme_error" role="alert">
+                        <span class="slds-assistive-text">error</span>
+                        <p>{errorMessage}</p>
+                    </div>
+                </template>
+                <template if:false={hasError}>
+                    <div class="pipeline-summary slds-grid slds-wrap slds-gutters slds-m-bottom_medium">
+                        <div class="slds-col slds-size_1-of-4">
+                            <div class="kpi-tile">
+                                <p class="kpi-label">Total Submissions</p>
+                                <p class="kpi-value">{totalCount}</p>
+                            </div>
+                        </div>
+                        <div class="slds-col slds-size_1-of-4">
+                            <div class="kpi-tile kpi-new">
+                                <p class="kpi-label">New</p>
+                                <p class="kpi-value">{newCount}</p>
+                            </div>
+                        </div>
+                        <div class="slds-col slds-size_1-of-4">
+                            <div class="kpi-tile kpi-review">
+                                <p class="kpi-label">In Review</p>
+                                <p class="kpi-value">{reviewCount}</p>
+                            </div>
+                        </div>
+                        <div class="slds-col slds-size_1-of-4">
+                            <div class="kpi-tile kpi-bound">
+                                <p class="kpi-label">Bound</p>
+                                <p class="kpi-value">{boundCount}</p>
+                            </div>
+                        </div>
+                    </div>
+                    <lightning-datatable
+                        key-field="id"
+                        data={filteredSubmissions}
+                        columns={columns}
+                        sorted-by={sortedBy}
+                        sorted-direction={sortedDirection}
+                        onsort={handleSort}
+                        hide-checkbox-column
+                        class="pipeline-table"
+                    ></lightning-datatable>
+                    <template if:true={isEmpty}>
+                        <div class="slds-illustration slds-illustration_small slds-m-top_large">
+                            <p class="slds-text-color_weak slds-text-align_center">
+                                No submissions match the selected filter.
+                            </p>
+                        </div>
+                    </template>
+                </template>
+            </template>
+        </div>
+    </lightning-card>
+</template>

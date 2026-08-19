@@ -1,0 +1,12 @@
+{
+	"servers": {
+		"QualityCloudsMCPServer": {
+			"url": "https://mcp-development.qualityclouds.com/mcp/",
+			"type": "http",
+			"headers": {
+				"Authorization": "Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJSUzI1NiJ9.eyJhdWQiOiIyIiwianRpIjoiNTkwNmI2MmUzMjY4NGIyZjhmNzc1NjI0NGVmYjJlZTRjY2JmZTA5ZGJiNjYxYjVhNDgxZDkyM2Q2OWQwNGVmMGUyN2EzODYwM2FiYjEwODkiLCJpYXQiOjE3NTkyMjI5MjguNzg3NjEyLCJuYmYiOjE3NTkyMjI5MjguNzg3NjE3LCJleHAiOjIwNzQ3NTU3MjguNzg0MTA3LCJzdWIiOiIxMTk5Iiwic2NvcGVzIjpbImluc3RhbmNlcyIsImxpY2Vuc2VzIiwibGl2ZS1jaGVjayIsIndyaXRlLW9mZnMiXX0.3qGKuZBlmsKr9TDkQ--foqryLwcBqNa5nGVfpY_6rcf4JUOAkPPhmGM0Kyx_Amk9ugVDjTCmJRtZEVWbPU4fdSWUttlobXVyodNTmp281jUVcVS3SphWIlqP-wYx9-v-bDMs9FFqFQ6AR6jg3Nj9OZcckvYpjfjx9uJehWVVXL6EPO9L3fJ-JS3tj2R1fI3JNrs7IcwbamWCfKpfjDoMi0sVaXWllzF-QMFf2AprN4sTYp58ttinvuVpKraaJF1UsvkH_GqRxAA-gl6ujrjZHSnw6I4iVmdod7KsYrQx2wQtf2sZ7daa9my0AKmDWVqtPetTHU6lOnukxAbQp0tWcZm6V9AC9BT1Mc2pRdCgUWRVV0A_46aq2JrLTtxmnM4_pvCHWeTZk9mx28Rb_j7xyucpbpgl0CoLiza5Tr6z6GYYprAq9b8X9vKahEqe0qjrtyU61pkGgHG_c7SvifDtgK-IZ4hntKuntuoEhkazmHnH-wTN0J3ZnfkcEytQzB8tdED2fCkoNnKimChAO-X0NWzRAAJ2wyCvITkZEPRZIo3vBe7z1HKLq2jPaWr7AAHGuTAmE3Kw3weAR-PaOFtAoNb7u-SHkR8hTwdRbF8x0xHuJ82Wt6uqyIEdeTg1aBozVhM7ei3sa-VlhCgiJaa6RvF8KrCAOP4Xx65-b4ba_eg"
+			}
+		}
+	},
+	"inputs": []
+}

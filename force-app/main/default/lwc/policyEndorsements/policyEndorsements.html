@@ -1,0 +1,108 @@
+<template>
+    <lightning-card title="Policy Endorsements" icon-name="standard:endorsement">
+        <div slot="actions">
+            <lightning-input
+                type="search"
+                label="Search Endorsements"
+                variant="label-hidden"
+                placeholder="Search by policy or account…"
+                value={searchTerm}
+                onchange={handleSearch}
+                class="search-input"
+            ></lightning-input>
+        </div>
+        <div class="slds-m-around_medium">
+            <template if:true={isLoading}>
+                <lightning-spinner
+                    alternative-text="Loading endorsements"
+                    size="medium"
+                ></lightning-spinner>
+            </template>
+            <template if:false={isLoading}>
+                <template if:true={hasError}>
+                    <div class="slds-notify slds-notify_alert slds-theme_error" role="alert">
+                        <span class="slds-assistive-text">error</span>
+                        <p>{errorMessage}</p>
+                    </div>
+                </template>
+                <template if:false={hasError}>
+                    <div class="endorsement-stats slds-grid slds-wrap slds-gutters slds-m-bottom_medium">
+                        <div class="slds-col slds-size_1-of-3">
+                            <div class="stat-tile">
+                                <p class="stat-label">Pending Endorsements</p>
+                                <p class="stat-value stat-pending">{pendingCount}</p>
+                            </div>
+                        </div>
+                        <div class="slds-col slds-size_1-of-3">
+                            <div class="stat-tile">
+                                <p class="stat-label">Approved</p>
+                                <p class="stat-value stat-approved">{approvedCount}</p>
+                            </div>
+                        </div>
+                        <div class="slds-col slds-size_1-of-3">
+                            <div class="stat-tile">
+                                <p class="stat-label">Rejected</p>
+                                <p class="stat-value stat-rejected">{rejectedCount}</p>
+                            </div>
+                        </div>
+                    </div>
+                    <template if:true={hasEndorsements}>
+                        <div class="endorsement-list">
+                            <template for:each={visibleEndorsements} for:item="endorsement">
+                                <div key={endorsement.id} class={endorsement.rowClass}>
+                                    <div class="slds-grid slds-grid_vertical-align-center slds-wrap">
+                                        <div class="slds-col slds-size_1-of-1 slds-medium-size_5-of-12">
+                                            <p class="endorsement-policy">{endorsement.policyNumber}</p>
+                                            <p class="endorsement-account">{endorsement.accountName}</p>
+                                        </div>
+                                        <div class="slds-col slds-size_1-of-2 slds-medium-size_3-of-12">
+                                            <p class="endorsement-type">{endorsement.endorsementType}</p>
+                                            <p class="endorsement-premium">
+                                                <lightning-formatted-number
+                                                    value={endorsement.premiumChange}
+                                                    format-style="currency"
+                                                    currency-code="USD"
+                                                    minimum-fraction-digits="0"
+                                                ></lightning-formatted-number>
+                                            </p>
+                                        </div>
+                                        <div class="slds-col slds-size_1-of-4 slds-medium-size_2-of-12">
+                                            <lightning-badge
+                                                label={endorsement.status}
+                                                class={endorsement.badgeClass}
+                                            ></lightning-badge>
+                                        </div>
+                                        <div class="slds-col slds-size_1-of-4 slds-medium-size_2-of-12 slds-text-align_right">
+                                            <lightning-formatted-date-time
+                                                value={endorsement.requestedDate}
+                                                year="numeric"
+                                                month="short"
+                                                day="2-digit"
+                                            ></lightning-formatted-date-time>
+                                        </div>
+                                    </div>
+                                </div>
+                            </template>
+                        </div>
+                    </template>
+                    <template if:false={hasEndorsements}>
+                        <div class="slds-illustration slds-illustration_small slds-m-top_large">
+                            <p class="slds-text-color_weak slds-text-align_center">
+                                No endorsements found.
+                            </p>
+                        </div>
+                    </template>
+                    <template if:true={hasMore}>
+                        <div class="slds-align_absolute-center slds-m-top_medium">
+                            <lightning-button
+                                label="Load More"
+                                onclick={handleLoadMore}
+                                variant="neutral"
+                            ></lightning-button>
+                        </div>
+                    </template>
+                </template>
+            </template>
+        </div>
+    </lightning-card>
+</template>

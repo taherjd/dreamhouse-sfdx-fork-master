@@ -1,0 +1,57 @@
+.renewal-kpi {
+    border-radius: 0.25rem;
+    padding: 0.75rem 1rem;
+    text-align: center;
+    border-left: 4px solid #dddbda;
+    background-color: #f3f3f3;
+}
+
+.renewal-kpi.renewal-urgent {
+    border-left-color: #c23934;
+    background-color: #fff1f0;
+}
+
+.renewal-kpi.renewal-soon {
+    border-left-color: #ff9a3c;
+    background-color: #fff8f0;
+}
+
+.renewal-kpi.renewal-planned {
+    border-left-color: #0070d2;
+    background-color: #f0f7ff;
+}
+
+.renewal-kpi-label {
+    font-size: 0.75rem;
+    color: #706e6b;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+    margin-bottom: 0.25rem;
+}
+
+.renewal-kpi-value {
+    font-size: 1.75rem;
+    font-weight: 700;
+    color: #080707;
+    margin: 0;
+}
+
+:host .renewal-urgent {
+    color: #c23934;
+    font-weight: 600;
+}
+
+:host .renewal-soon {
+    color: #ff9a3c;
+    font-weight: 600;
+}
+
+:host .renewal-normal {
+    color: #3e3e3c;
+}
+
+@media (max-width: 768px) {
+    .slds-col.slds-size_1-of-3 {
+        width: 100%;
+    }
+}

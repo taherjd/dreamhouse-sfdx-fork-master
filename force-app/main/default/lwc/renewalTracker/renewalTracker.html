@@ -1,0 +1,68 @@
+<template>
+    <lightning-card title="Renewal Tracker" icon-name="standard:opportunity">
+        <div slot="actions">
+            <lightning-combobox
+                label="Days to Renewal"
+                variant="label-hidden"
+                value={daysFilter}
+                options={dayOptions}
+                onchange={handleDaysFilter}
+            ></lightning-combobox>
+        </div>
+        <div class="slds-m-around_medium">
+            <template if:true={isLoading}>
+                <lightning-spinner
+                    alternative-text="Loading renewals"
+                    size="medium"
+                ></lightning-spinner>
+            </template>
+            <template if:false={isLoading}>
+                <template if:true={hasError}>
+                    <div class="slds-notify slds-notify_alert slds-theme_error" role="alert">
+                        <span class="slds-assistive-text">error</span>
+                        <p>{errorMessage}</p>
+                    </div>
+                </template>
+                <template if:false={hasError}>
+                    <div class="renewal-summary slds-grid slds-wrap slds-gutters slds-m-bottom_medium">
+                        <div class="slds-col slds-size_1-of-3">
+                            <div class="renewal-kpi renewal-urgent">
+                                <p class="renewal-kpi-label">Expiring in 30 days</p>
+                                <p class="renewal-kpi-value">{urgentCount}</p>
+                            </div>
+                        </div>
+                        <div class="slds-col slds-size_1-of-3">
+                            <div class="renewal-kpi renewal-soon">
+                                <p class="renewal-kpi-label">Expiring 31–60 days</p>
+                                <p class="renewal-kpi-value">{soonCount}</p>
+                            </div>
+                        </div>
+                        <div class="slds-col slds-size_1-of-3">
+                            <div class="renewal-kpi renewal-planned">
+                                <p class="renewal-kpi-label">Expiring 61–90 days</p>
+                                <p class="renewal-kpi-value">{plannedCount}</p>
+                            </div>
+                        </div>
+                    </div>
+                    <lightning-datatable
+                        key-field="id"
+                        data={filteredRenewals}
+                        columns={columns}
+                        sorted-by={sortedBy}
+                        sorted-direction={sortedDirection}
+                        onsort={handleSort}
+                        hide-checkbox-column
+                        class="renewal-table"
+                    ></lightning-datatable>
+                    <template if:true={isEmpty}>
+                        <div class="slds-illustration slds-illustration_small slds-m-top_large">
+                            <p class="slds-text-color_weak slds-text-align_center">
+                                No renewals match the selected window.
+                            </p>
+                        </div>
+                    </template>
+                </template>
+            </template>
+        </div>
+    </lightning-card>
+</template>

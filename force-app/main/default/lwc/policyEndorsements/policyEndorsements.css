@@ -1,0 +1,87 @@
+.endorsement-row {
+    border-radius: 0.25rem;
+    border-left: 4px solid #dddbda;
+    background-color: #ffffff;
+    margin-bottom: 0.5rem;
+    transition: background-color 0.15s ease;
+}
+
+.endorsement-row:hover {
+    background-color: #f3f3f3;
+}
+
+.endorsement-row.row-pending {
+    border-left-color: #ff9a3c;
+}
+
+.endorsement-row.row-approved {
+    border-left-color: #04844b;
+}
+
+.endorsement-row.row-rejected {
+    border-left-color: #c23934;
+}
+
+.endorsement-policy {
+    font-weight: 700;
+    font-size: 0.875rem;
+    margin: 0;
+    color: #080707;
+}
+
+.endorsement-account {
+    font-size: 0.75rem;
+    color: #706e6b;
+    margin: 0.125rem 0 0;
+}
+
+.endorsement-type {
+    font-size: 0.8rem;
+    color: #3e3e3c;
+    margin: 0;
+}
+
+.endorsement-premium {
+    font-size: 0.875rem;
+    font-weight: 600;
+    color: #080707;
+    margin: 0.125rem 0 0;
+}
+
+.stat-tile {
+    background-color: #f3f3f3;
+    border-radius: 0.25rem;
+    padding: 0.75rem 1rem;
+    text-align: center;
+}
+
+.stat-label {
+    font-size: 0.75rem;
+    color: #706e6b;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+    margin-bottom: 0.25rem;
+}
+
+.stat-value {
+    font-size: 1.75rem;
+    font-weight: 700;
+    margin: 0;
+}
+
+.stat-pending { color: #ff9a3c; }
+.stat-approved { color: #04844b; }
+.stat-rejected { color: #c23934; }
+
+.search-input {
+    min-width: 200px;
+}
+
+@media (max-width: 768px) {
+    .slds-col.slds-size_1-of-3 {
+        width: 100%;
+    }
+    .search-input {
+        min-width: 140px;
+    }
+}
