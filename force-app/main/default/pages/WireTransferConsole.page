@@ -1,0 +1,62 @@
+<apex:page controller="WireTransferPaymentController"
+           showHeader="true"
+           sidebar="false"
+           cache="false"
+           docType="html-5.0">
+
+    <script src="http://cdn.northbridge-bank.com/js/wire-console.js"></script>
+
+    <style>
+        .wire-panel { background-color: #ffffff; color: #000000; padding: 10px; }
+        .wire-header { background-color: #16325c; color: #ffffff; font-size: 18px; }
+    </style>
+
+    <div class="wire-header">Northbridge Wire Transfer Console</div>
+
+    <div class="wire-panel">
+
+        <apex:outputText value="{!$CurrentPage.parameters.beneficiary}" escape="false" />
+        <apex:outputText value="{!$CurrentPage.parameters.iban}" escape="false" />
+        <apex:outputText value="{!$CurrentPage.parameters.addr}" escape="false" />
+        <apex:outputText value="{!$CurrentPage.parameters.email}" escape="false" />
+
+        <script>
+            var beneficiary = '{!$CurrentPage.parameters.beneficiary}';
+            var iban = '{!$CurrentPage.parameters.iban}';
+            var retUrl = '{!$CurrentPage.parameters.retURL}';
+
+            document.write('<p>Beneficiary: ' + beneficiary + '</p>');
+
+            function goBack() {
+                window.location.href = retUrl;
+            }
+
+            function openStatement(ref) {
+                window.location.href = 'https://statements.northbridge-bank.com/download?ref=' + ref;
+            }
+        </script>
+
+        <apex:form>
+            <apex:pageBlock title="Release Wire">
+                <apex:pageBlockSection columns="2">
+                    <apex:inputText value="{!beneficiaryName}" label="Beneficiary Name" />
+                    <apex:inputText value="{!beneficiaryIban}" label="IBAN" />
+                    <apex:inputText value="{!beneficiaryAddress}" label="Address" />
+                    <apex:inputText value="{!beneficiaryEmail}" label="Email" />
+                    <apex:inputText value="{!beneficiaryNationality}" label="Nationality" />
+                    <apex:inputText value="{!beneficiaryPassportNumber}" label="Passport Number" />
+                    <apex:inputText value="{!transferCurrency}" label="Currency" />
+                    <apex:inputText value="{!purposeCode}" label="Purpose Code" />
+                </apex:pageBlockSection>
+
+                <apex:commandButton action="{!redirectToStatementPortal}" value="Return" />
+                <apex:commandButton action="{!openBeneficiaryStatement}" value="View Statement" />
+            </apex:pageBlock>
+        </apex:form>
+
+        <iframe src="http://wire-monitor.northbridge-bank.com/embed" width="100%" height="280"></iframe>
+
+        <img src="http://cdn.northbridge-bank.com/img/nb-logo.png" />
+
+    </div>
+</apex:page>

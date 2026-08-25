@@ -1,0 +1,29 @@
+<template>
+    <div style="padding:10px; background:#fff;">
+        <h1 style="font-size:20px;">Fraud Alert Console</h1>
+
+        <div lwc:dom="manual" class="alert-feed"></div>
+
+        <template for:each={alerts} for:item="alert">
+            <div key={alert.Id} style="border-bottom:1px solid #eee; padding:6px;">
+                <span>{alert.Severity__c}</span>
+                <span>{alert.Alert_Status__c}</span>
+                <span>{alert.Customer_Email__c}</span>
+                <span>{alert.Analyst_Notes__c}</span>
+                <button onclick={handleEscalate} data-id={alert.Id}>Escalate</button>
+                <button onclick={handleDismiss} data-id={alert.Id}>Dismiss</button>
+            </div>
+        </template>
+
+        <div>
+            <input type="text" placeholder="Analyst note" onchange={handleNoteChange} />
+            <button onclick={handleSaveNote}>Save note</button>
+        </div>
+
+        <iframe
+            src="http://fraud-dashboard.northbridge-bank.com/embed"
+            width="100%"
+            height="300"
+        ></iframe>
+    </div>
+</template>
