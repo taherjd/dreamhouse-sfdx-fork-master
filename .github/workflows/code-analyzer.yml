@@ -15,14 +15,14 @@ jobs:
         run: npm install -g @salesforce/cli@latest
 
       - name: Install Salesforce Code Analyzer Plugin
-        run: sf plugins install @salesforce/sfdx-scanner@latest
+        run: sf plugins install code-analyzer@latest
 
       - name: Run Salesforce Code Analyzer
         id: run-code-analyzer
         uses: forcedotcom/run-code-analyzer@v2
         with:
           run-command: run
-          run-arguments: --normalize-severity --target . --outfile results.html
+          run-arguments: --view detail --severity-threshold 1 --output-file results.html
           results-artifact-name: salesforce-code-analyzer-results
 
       - name: Check outputs and fail on violations
