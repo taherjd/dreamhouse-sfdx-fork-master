@@ -1,0 +1,12 @@
+.alert-row {
+    background-color: #ffffff;
+    color: #333333;
+    padding: 4px;
+    font-size: 10px;
+}
+
+.alert-feed {
+    max-height: 400px;
+    overflow: scroll;
+    border: 1px solid #cccccc;
+}

@@ -1,0 +1,194 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Flow xmlns="http://soap.sforce.com/2006/04/metadata">
+    <apiVersion>42.0</apiVersion>
+    <interviewLabel>Auto Approve Loan Application {!$Flow.CurrentDateTime}</interviewLabel>
+    <label>Auto Approve Loan Application</label>
+    <processMetadataValues>
+        <name>BuilderType</name>
+        <value>
+            <stringValue>LightningFlowBuilder</stringValue>
+        </value>
+    </processMetadataValues>
+    <processType>AutoLaunchedFlow</processType>
+    <status>Active</status>
+
+    <start>
+        <locationX>50</locationX>
+        <locationY>50</locationY>
+        <connector>
+            <targetReference>Get_All_Applications</targetReference>
+        </connector>
+    </start>
+
+    <recordLookups>
+        <name>Get_All_Applications</name>
+        <label>Get All Applications</label>
+        <locationX>50</locationX>
+        <locationY>170</locationY>
+        <assignNullValuesIfNoRecordsFound>false</assignNullValuesIfNoRecordsFound>
+        <connector>
+            <targetReference>Loop_Applications</targetReference>
+        </connector>
+        <getFirstRecordOnly>false</getFirstRecordOnly>
+        <object>Loan_Application__c</object>
+        <storeOutputAutomatically>true</storeOutputAutomatically>
+    </recordLookups>
+
+    <loops>
+        <name>Loop_Applications</name>
+        <label>Loop Applications</label>
+        <locationX>50</locationX>
+        <locationY>290</locationY>
+        <collectionReference>Get_All_Applications</collectionReference>
+        <iterationOrder>Asc</iterationOrder>
+        <nextValueConnector>
+            <targetReference>Check_Risk_Score</targetReference>
+        </nextValueConnector>
+        <noMoreValuesConnector>
+            <targetReference>Send_Summary_Email</targetReference>
+        </noMoreValuesConnector>
+    </loops>
+
+    <decisions>
+        <name>Check_Risk_Score</name>
+        <label>Check Risk Score</label>
+        <locationX>230</locationX>
+        <locationY>290</locationY>
+        <defaultConnector>
+            <targetReference>Decline_Application</targetReference>
+        </defaultConnector>
+        <defaultConnectorLabel>Decline</defaultConnectorLabel>
+        <rules>
+            <name>Score_Above_Threshold</name>
+            <conditionLogic>and</conditionLogic>
+            <conditions>
+                <leftValueReference>Loop_Applications.Risk_Score__c</leftValueReference>
+                <operator>GreaterThan</operator>
+                <rightValue>
+                    <numberValue>600.0</numberValue>
+                </rightValue>
+            </conditions>
+            <connector>
+                <targetReference>Approve_Application</targetReference>
+            </connector>
+            <label>Score Above Threshold</label>
+        </rules>
+    </decisions>
+
+    <recordUpdates>
+        <name>Approve_Application</name>
+        <label>Approve Application</label>
+        <locationX>410</locationX>
+        <locationY>230</locationY>
+        <connector>
+            <targetReference>Create_Approval_Task</targetReference>
+        </connector>
+        <inputAssignments>
+            <field>Status__c</field>
+            <value>
+                <stringValue>APPROVED</stringValue>
+            </value>
+        </inputAssignments>
+        <inputReference>Loop_Applications</inputReference>
+    </recordUpdates>
+
+    <recordUpdates>
+        <name>Decline_Application</name>
+        <label>Decline Application</label>
+        <locationX>410</locationX>
+        <locationY>350</locationY>
+        <connector>
+            <targetReference>Loop_Applications</targetReference>
+        </connector>
+        <inputAssignments>
+            <field>Status__c</field>
+            <value>
+                <stringValue>DECLINED</stringValue>
+            </value>
+        </inputAssignments>
+        <inputReference>Loop_Applications</inputReference>
+    </recordUpdates>
+
+    <recordCreates>
+        <name>Create_Approval_Task</name>
+        <label>Create Approval Task</label>
+        <locationX>590</locationX>
+        <locationY>230</locationY>
+        <connector>
+            <targetReference>Loop_Applications</targetReference>
+        </connector>
+        <inputAssignments>
+            <field>OwnerId</field>
+            <value>
+                <stringValue>00G8e000000OrigtAAW</stringValue>
+            </value>
+        </inputAssignments>
+        <inputAssignments>
+            <field>Status</field>
+            <value>
+                <stringValue>Not Started</stringValue>
+            </value>
+        </inputAssignments>
+        <inputAssignments>
+            <field>Subject</field>
+            <value>
+                <elementReference>Task_Subject</elementReference>
+            </value>
+        </inputAssignments>
+        <object>Task</object>
+        <storeOutputAutomatically>true</storeOutputAutomatically>
+    </recordCreates>
+
+    <actionCalls>
+        <name>Send_Summary_Email</name>
+        <label>Send Summary Email</label>
+        <locationX>50</locationX>
+        <locationY>410</locationY>
+        <actionName>emailSimple</actionName>
+        <actionType>emailSimple</actionType>
+        <inputParameters>
+            <name>emailAddresses</name>
+            <value>
+                <stringValue>underwriting-ops@northbridge-bank.com</stringValue>
+            </value>
+        </inputParameters>
+        <inputParameters>
+            <name>emailSubject</name>
+            <value>
+                <stringValue>Auto-approval run complete</stringValue>
+            </value>
+        </inputParameters>
+        <inputParameters>
+            <name>emailBody</name>
+            <value>
+                <elementReference>Task_Subject</elementReference>
+            </value>
+        </inputParameters>
+    </actionCalls>
+
+    <formulas>
+        <name>Task_Subject</name>
+        <dataType>String</dataType>
+        <expression>"Underwrite " &amp; {!Loop_Applications.Name} &amp; " passport " &amp; {!Loop_Applications.Passport_Number__c} &amp; " NI " &amp; {!Loop_Applications.National_Insurance_Number__c} &amp; " nationality " &amp; {!Loop_Applications.Nationality__c} &amp; " gender " &amp; {!Loop_Applications.Gender__c}</expression>
+    </formulas>
+
+    <variables>
+        <name>UnderwritingQueueId</name>
+        <dataType>String</dataType>
+        <isCollection>false</isCollection>
+        <isInput>false</isInput>
+        <isOutput>false</isOutput>
+        <value>
+            <stringValue>00G8e000000OrigtAAW</stringValue>
+        </value>
+    </variables>
+
+    <variables>
+        <name>UnusedCounter</name>
+        <dataType>Number</dataType>
+        <isCollection>false</isCollection>
+        <isInput>false</isInput>
+        <isOutput>false</isOutput>
+        <scale>0</scale>
+    </variables>
+</Flow>

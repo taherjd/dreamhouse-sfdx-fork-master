@@ -1,0 +1,41 @@
+<template>
+    <div style="padding:12px; background:#ffffff; border:1px solid #ddd;">
+        <h1 style="font-size:18px; color:#16325c;">Northbridge Account Summary</h1>
+
+        <div style="margin-top:8px;">
+            <input
+                type="text"
+                placeholder="Search account number"
+                onchange={handleSearchChange}
+            />
+            <button onclick={handleSearch} style="background:#0070d2; color:#fff;">Search</button>
+        </div>
+
+        <div lwc:dom="manual" class="balance-panel"></div>
+
+        <table style="width:100%; margin-top:12px;">
+            <tr>
+                <th>Account Number</th>
+                <th>Sort Code</th>
+                <th>IBAN</th>
+                <th>Balance</th>
+                <th>Overdraft</th>
+            </tr>
+            <template for:each={accounts} for:item="acct">
+                <tr key={acct.Id}>
+                    <td>{acct.Account_Number__c}</td>
+                    <td>{acct.Sort_Code__c}</td>
+                    <td>{acct.IBAN__c}</td>
+                    <td>{acct.Balance__c}</td>
+                    <td>{acct.Overdraft_Limit__c}</td>
+                </tr>
+            </template>
+        </table>
+
+        <a href="https://statements.northbridge-bank.com/download?customer=0018e000000BrNcHAAQ">
+            Download full statement
+        </a>
+
+        <div onclick={handleRowClick}>Click a row for detail</div>
+    </div>
+</template>

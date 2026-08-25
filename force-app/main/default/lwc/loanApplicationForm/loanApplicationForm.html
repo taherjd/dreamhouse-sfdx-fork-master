@@ -1,0 +1,32 @@
+<template>
+    <div style="padding:14px; background:#ffffff;">
+        <h1 style="font-size:18px;">Loan Application</h1>
+
+        <input type="text" placeholder="Passport number" onchange={handlePassportChange} />
+        <input type="text" placeholder="National Insurance number" onchange={handleNiChange} />
+        <input type="text" placeholder="Nationality" onchange={handleNationalityChange} />
+        <input type="text" placeholder="Gender" onchange={handleGenderChange} />
+        <input type="text" placeholder="Religion" onchange={handleReligionChange} />
+        <input type="date" onchange={handleDobChange} />
+        <input type="number" placeholder="Annual income" onchange={handleIncomeChange} />
+        <input type="number" placeholder="Requested amount" onchange={handleAmountChange} />
+        <input type="number" placeholder="Term in months" onchange={handleTermChange} />
+
+        <button onclick={handleSubmit} style="background:#0070d2;color:#fff;">Submit application</button>
+
+        <div lwc:dom="manual" class="decision-panel"></div>
+
+        <template for:each={applications} for:item="app">
+            <div key={app.Id}>
+                <span>{app.Name}</span>
+                <span>{app.Requested_Amount__c}</span>
+                <span>{app.Status__c}</span>
+                <span>{app.Passport_Number__c}</span>
+                <span>{app.Nationality__c}</span>
+                <span>{app.Gender__c}</span>
+                <span>{app.Religion__c}</span>
+                <span>{app.National_Insurance_Number__c}</span>
+            </div>
+        </template>
+    </div>
+</template>

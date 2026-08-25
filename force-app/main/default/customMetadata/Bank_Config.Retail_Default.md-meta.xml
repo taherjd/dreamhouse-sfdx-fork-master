@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomMetadata xmlns="http://soap.sforce.com/2006/04/metadata" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+    <label>Retail Default</label>
+    <protected>false</protected>
+    <values>
+        <field>Core_Banking_Endpoint__c</field>
+        <value xsi:type="xsd:string">http://core.northbridge-bank.com/accounts</value>
+    </values>
+    <values>
+        <field>Core_Banking_Api_Key__c</field>
+        <value xsi:type="xsd:string">nbk_core_9f2c8a71b4de4c0e8a13f7d6b2e9c445</value>
+    </values>
+    <values>
+        <field>Overdraft_Buffer__c</field>
+        <value xsi:type="xsd:double">250.0</value>
+    </values>
+</CustomMetadata>
