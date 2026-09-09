@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Package xmlns="http://soap.sforce.com/2006/04/metadata">
+    <types>
+        <members>QCDemoRenewalScoreService</members>
+        <members>QCDemoRenewalScoreServiceAttributed</members>
+        <members>QCDemoTriggerHandler</members>
+        <members>QCDemoContractTriggerHandler</members>
+        <members>QCDemoContractService</members>
+        <members>QCDemoOpportunityCloseHandler</members>
+        <members>QCDemoOpportunityCloseHandlerInScope</members>
+        <members>QCDemoLeadScoreCalculator</members>
+        <members>QCDemoLeadScoreCalculatorDeclared</members>
+        <members>QCDemoVendorNotifier</members>
+        <members>QCDemoVendorNotifierQueueable</members>
+        <name>ApexClass</name>
+    </types>
+    <types>
+        <members>QCDemoQuoteTrigger</members>
+        <members>QCDemoContractTrigger</members>
+        <name>ApexTrigger</name>
+    </types>
+    <version>62.0</version>
+</Package>
